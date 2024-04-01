@@ -90,13 +90,18 @@ export class Bot {
     return post;
   }
 
-  replyToPost(post: Post, message: string) {
+  async replyToPost(post: Post, message: string) {
+    const reply_id = post.root_id || post.id;
     const reply: Post = this.createPartialPost({
       channel_id: post.channel_id,
       message: message,
-      root_id: post.id,
+      root_id: reply_id,
     });
-    this.mmClient.createPost(reply)
+    try {
+      await this.mmClient.createPost(reply);
+    } catch (e) {
+      console.error('Error replying to post', e);
+    }
   }
 
   private updateSelfInfo(info: any) {

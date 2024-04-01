@@ -48,7 +48,8 @@ export abstract class EventHandler {
   }
 
   async handleEvent(msg: Message) {
-    console.log("Handling Event:", msg.event, "with handler:", this)
+    //console.debug("Handling Event:", msg.data, msg.post, "with handler:", this)
+    console.debug("Handling Event:", msg.event, "with handler:", this)
     await this.func(msg);
   }
 }
@@ -83,15 +84,19 @@ export class PostedEventHandler extends EventHandler implements PostedEventHandl
   }
 
   async handleEvent(msg: Message) {
+    //console.debug("before checks Posted Event:", msg.data, msg.post, "with handler:", this)
     // bail if the user_id is ourself
+    //console.debug("Checking if user_id is ourself:", msg.post.user_id, msg.bot.info.user_id, msg.post.user_id === msg.bot.info.user_id)
     if (msg.post.user_id === msg.bot.info.user_id) return;
     // fail fast so we can check all the things
+    console.debug("Checking if need_mention:", this.need_mention, "and is_mention:", msg.is_mention, "and need_direct:", this.need_direct, "and is_direct:", msg.is_direct, "and need_thread:", this.need_thread, "and is_thread:", msg.is_thread, "and regex:", this.regex, "and regex.test:", this.regex?.test(msg.post.message))
     if (this.need_mention && !msg.is_mention) return;
     if (this.need_direct && !msg.is_direct) return;
     if (this.need_thread && !msg.is_thread) return;
     //TODO: implement users / admins
     //if (this.need_admin && !msg.data.sender_name === 'admin') return;
     if (this.regex && !this.regex.test(msg.post.message)) return;
+    //console.log("After checks before running Event:", msg.data, msg.post, "with handler:", this)
     await super.handleEvent(msg);
   }
 }
