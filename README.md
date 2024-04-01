@@ -1,1 +1,1 @@
-npx ts-node src/main.ts
+npm run build; npx ts-node src/main.ts
