@@ -89,7 +89,7 @@ export class PostedEventHandler extends EventHandler implements PostedEventHandl
     //console.debug("Checking if user_id is ourself:", msg.post.user_id, msg.bot.info.user_id, msg.post.user_id === msg.bot.info.user_id)
     if (msg.post.user_id === msg.bot.info.user_id) return;
     // fail fast so we can check all the things
-    console.debug("Checking if need_mention:", this.need_mention, "and is_mention:", msg.is_mention, "and need_direct:", this.need_direct, "and is_direct:", msg.is_direct, "and need_thread:", this.need_thread, "and is_thread:", msg.is_thread, "and regex:", this.regex, "and regex.test:", this.regex?.test(msg.post.message))
+    //console.debug("Checking if need_mention:", this.need_mention, "and is_mention:", msg.is_mention, "and need_direct:", this.need_direct, "and is_direct:", msg.is_direct, "and need_thread:", this.need_thread, "and is_thread:", msg.is_thread, "and regex:", this.regex, "and regex.test:", this.regex?.test(msg.post.message))
     if (this.need_mention && !msg.is_mention) return;
     if (this.need_direct && !msg.is_direct) return;
     if (this.need_thread && !msg.is_thread) return;
