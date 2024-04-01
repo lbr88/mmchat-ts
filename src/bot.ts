@@ -58,6 +58,8 @@ export class Bot {
   }
   createPartialPost(overrides: Partial<Post> = {}): Post {
     // why did i choose to use typescript. gawd this is terrible
+    // hack because mattermost types suck and doesn't account for create api endpoints
+    // https://github.com/mattermost/mattermost/issues/26319
     const record: Record<string, any> = {
       "from_bot": this.info.is_bot,
     }
