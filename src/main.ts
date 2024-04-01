@@ -76,7 +76,7 @@ class Bot {
       this.events.handleEvent(msgobj);
     });
 
-    this.addEventListener(EventType.HELLO, new HelloEvent(async (msg) => {
+    this.events.on(EventType.HELLO, new HelloEvent(async (msg) => {
       console.log('Hello event received lets get some info about our self');
       // get some info about our self
       this.mmClient.getUser("me").then((user) => {
@@ -86,12 +86,8 @@ class Bot {
       });
 
     }));
-
-
   }
-  addEventListener(event: EventType, handler: HelloEvent | PostedEvent) {
-    this.events.on(event, handler);
-  }
+
   replyToPost(post: Post, message: string) {
     const reply: Post = createPartialPost({
       channel_id: post.channel_id,
@@ -137,7 +133,7 @@ async function main() {
   await bot.start();
 
   // Define a command
-  bot.addEventListener(EventType.POSTED, new PostedEvent(/hello/, async (msg) => {
+  bot.events.on(EventType.POSTED, new PostedEvent(/hello/, async (msg) => {
     console.log('Hello command received');
     bot.replyToPost(msg.post, 'Hello! ' + msg.data.sender_name);
   }));
