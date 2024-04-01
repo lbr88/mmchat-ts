@@ -4,10 +4,9 @@ import { Bot } from "../bot";
 
 export default function register(bot: Bot) {
   bot.events.on(new PostedEventHandler(async (msg: Message) => {
-    console.log('Hello command received');
-    bot.replyToPost(msg.post, 'Hello! ' + msg.data.sender_name);
+    bot.replyToPost(msg.post, 'pong');
   }, {
-    regex: /hello/i,
+    regex: /ping/i,
     need_mention: true
   }));
 }

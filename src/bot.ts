@@ -43,7 +43,7 @@ export class Bot {
     this.wsClient.addMessageListener(async (msg) => {
       // pass through all messages to the event handler
       const msgobj = new Message(msg.seq, msg.data, msg.event);
-      if (BotSettings.getInstance().debug) {
+      if (this.settings.debug) {
         console.debug("data:", msgobj.data);
         console.debug("data.post:", msgobj.post);
       }
@@ -51,12 +51,8 @@ export class Bot {
     });
 
     this.events.on(new HelloEventHandler(async (msg) => {
-      console.log('Hello event received lets get some info about our self');
-      // get some info about our self
       this.mmClient.getUser("me").then((user) => {
         this.updateSelfInfo(user);
-      }, (err) => {
-        console.error(err);
       });
     }));
   }
@@ -100,11 +96,7 @@ export class Bot {
       message: message,
       root_id: post.id,
     });
-    this.mmClient.createPost(reply).then((post) => {
-      console.log('Reply posted', post);
-    }, (err) => {
-      console.error('Error posting reply', err);
-    });
+    this.mmClient.createPost(reply)
   }
 
   private updateSelfInfo(info: any) {
