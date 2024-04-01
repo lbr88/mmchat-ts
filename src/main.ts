@@ -69,27 +69,15 @@ class Bot {
   }
   setupListeners() {
     this.wsClient.addMessageListener(async (msg) => {
-      // pass through all messages to the command handler
+      // pass through all messages to the event handler
       const msgobj = new Message(msg.seq, msg.data, msg.event);
-      // load into the Post type
       console.log(msgobj);
 
-      const postobj: Post = msgobj.post;
-      if (postobj) {
-        if ("message" in postobj && postobj.message) {
-          console.log(postobj.message);
-        }
-      }
       this.events.handleEvent(msgobj);
     });
 
     this.addEventListener(EventType.HELLO, new HelloEvent(async (msg) => {
       console.log('Hello event received lets get some info about our self');
-      // send a message that we are now online
-      const post: Post = createPartialPost({
-        channel_id: 'town-square',
-        message: 'Hello, I am online!',
-      });
       // get some info about our self
       this.mmClient.getUser("me").then((user) => {
         this.updateSelfInfo(user);
