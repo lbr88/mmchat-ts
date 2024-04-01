@@ -58,11 +58,11 @@ export class Bot {
   }
 
 
-  async replyToPost(post: Post, message: string) {
+  async replyToPost(post: Post, message?: string | null) {
     const reply_id = post.root_id || post.id;
     const reply: Post = Message.createPartialPost({
       channel_id: post.channel_id,
-      message: message,
+      message: message || '',
       root_id: reply_id,
     });
     try {
