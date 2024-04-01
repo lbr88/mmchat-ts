@@ -5,10 +5,12 @@ import path from 'path';
 
 
 async function main() {
+  // bot part
   const bot = Bot.getInstance()
   await bot.start()
   await bot.registerEventHandlers()
 
+  // httpserver part
   const app = express();
   const port = 3000;
   app.get('/bot-info', (req, res) => {
