@@ -1,7 +1,6 @@
 import { BotSettings } from './settings';
 import { Bot } from './bot';
 export class Message {
-  botsettings: BotSettings = BotSettings.getInstance();
   bot: Bot;
   seq: number;
   event: string;
@@ -12,7 +11,7 @@ export class Message {
   is_thread?: boolean;
   is_mention?: boolean;
   constructor(seq: number, data: any, event: string) {
-    this.bot = Bot.getInstance(this.botsettings);
+    this.bot = Bot.getInstance();
     this.seq = seq;
     this.event = event;
     this.data = data;

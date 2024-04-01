@@ -16,15 +16,15 @@ export class Bot {
   mmClient: Client4 = new Client4();
   events: EventHandlers = new EventHandlers();
   wspath = '/api/v4/websocket';
-  settings: { host: string, token: string };
+  settings: BotSettings;
   info: any;
 
-  private constructor(settings: { host: string, token: string }) {
-    this.settings = settings;
+  private constructor() {
+    this.settings = BotSettings.getInstance();
   }
-  public static getInstance(settings: { host: string, token: string }) {
+  public static getInstance() {
     if (!Bot.instance) {
-      Bot.instance = new Bot(settings);
+      Bot.instance = new Bot();
     }
     return Bot.instance;
   }
@@ -61,7 +61,7 @@ export class Bot {
   createPartialPost(overrides: Partial<Post> = {}): Post {
     // why did i choose to use typescript. gawd this is terrible
     const record: Record<string, any> = {
-      "from_bot": Bot.getInstance(BotSettings.getInstance()).info.is_bot,
+      "from_bot": this.info.is_bot,
     }
     const post: Post = {
       id: "",

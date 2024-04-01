@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
+
 export class BotSettings {
+  private static instance: BotSettings;
   host: string;
   token: string;
   debug: boolean = false;
@@ -14,6 +16,9 @@ export class BotSettings {
     this.debug = process.env.DEBUG === 'true';
   }
   public static getInstance() {
+    if (!BotSettings.instance) {
+      BotSettings.instance = new BotSettings();
+    }
     return new BotSettings();
   }
 }

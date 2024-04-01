@@ -1,14 +1,12 @@
 
 import { PostedEventHandler } from './events';
-import { BotSettings } from './settings';
 import { Bot } from './bot';
 
 
 // create the bot
 async function main() {
   // get settings
-  const settings = BotSettings.getInstance();
-  const bot = Bot.getInstance(settings);
+  const bot = Bot.getInstance();
   await bot.start();
 
   // Define a command
