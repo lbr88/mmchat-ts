@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@mattermost/client": "^9.7.0-0",
+    "@mattermost/types": "^9.3.0",
+    "@types/ws": "^8.5.10",
+    "dotenv": "^16.4.5",
+    "ws": "^8.16.0"
+  }
+}
