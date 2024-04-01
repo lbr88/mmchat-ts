@@ -16,6 +16,7 @@ async function main() {
     console.log('Hello command received');
     bot.replyToPost(msg.post, 'Hello! ' + msg.data.sender_name);
   }, {
+    regex: /hello/i,
     need_mention: true
   }));
 
