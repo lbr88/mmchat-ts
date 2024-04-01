@@ -63,4 +63,39 @@ export class Message {
       return null;
     }
   }
+  public static createPartialPost(overrides: Partial<Post> = {}): Post {
+    // why did i choose to use typescript. gawd this is terrible
+    // hack because mattermost types suck and doesn't account for create api endpoints
+    // https://github.com/mattermost/mattermost/issues/26319
+    const record: Record<string, any> = {
+      "from_bot": true,
+    }
+    const post: Post = {
+      id: "",
+      create_at: 1234,
+      update_at: 1234,
+      edit_at: 0,
+      delete_at: 0,
+      is_pinned: false,
+      user_id: "me",
+      channel_id: "",
+      root_id: "",
+      original_id: "",
+      message: "",
+      type: "",
+      props: record,
+      metadata: {
+        embeds: [],
+        emojis: [],
+        files: [],
+        images: {},
+        reactions: [],
+      },
+      hashtags: "",
+      pending_post_id: "",
+      reply_count: 0,
+      ...overrides,
+    }
+    return post;
+  }
 }
